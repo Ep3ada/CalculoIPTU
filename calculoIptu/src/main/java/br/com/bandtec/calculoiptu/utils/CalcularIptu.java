@@ -1,4 +1,4 @@
-package br.com.bandtec.calculoiptu;
+package br.com.bandtec.calculoiptu.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

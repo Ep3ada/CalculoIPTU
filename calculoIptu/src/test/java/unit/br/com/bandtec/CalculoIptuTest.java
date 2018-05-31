@@ -2,7 +2,7 @@ package unit.br.com.bandtec;
 
 import static org.junit.Assert.*;
 
-import br.com.bandtec.calculoiptu.CalcularIptu;
+import br.com.bandtec.calculoiptu.utils.CalcularIptu;
 import org.junit.Test;
 
 public class CalculoIptuTest {
