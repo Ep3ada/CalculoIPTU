@@ -39,6 +39,7 @@ public class ContribuinteController {
         this.repository.save(contribuinte);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
+
     }
 
     @PutMapping

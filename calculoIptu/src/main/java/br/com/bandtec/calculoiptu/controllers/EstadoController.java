@@ -35,12 +35,11 @@ public class EstadoController {
 
     @PostMapping
     public ResponseEntity criar(@RequestBody Estado e) {
-
         this.repository.save(e);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    
+
     @PutMapping
     public ResponseEntity atualizar(@RequestBody Estado e) {
         this.repository.save(e);

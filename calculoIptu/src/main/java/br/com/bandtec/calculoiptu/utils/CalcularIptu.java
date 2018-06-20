@@ -1,20 +1,25 @@
 package br.com.bandtec.calculoiptu.utils;
 
+import br.com.bandtec.calculoiptu.repository.CidadeRepository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CalcularIptu {
 
-    public boolean isCidadeValida(String c) {
-        if (c.equals("São Paulo")) {
+    private CidadeRepository repoCidade;
+
+    public boolean isCidadeValida(int c) {
+
+        if (repoCidade.findOne(c) != null) {
             return true;
         }
+
         return false;
 
     }
 
-    private double calculoValorIptu(String cidade, double valor) {
+    private double calculoValorIptu(int cidade, double valor) {
         if (!isCidadeValida(cidade)) {
             throw new IllegalArgumentException("Cidade inexistente na base de dados");
         }
@@ -37,13 +42,13 @@ public class CalcularIptu {
         return resultado;
     }
 
-    public double calcularPagaAVista(String cidade, double valor) {
+    public double calcularPagaAVista(int cidade, double valor) {
         double resultado = calculoValorIptu(cidade, valor);
 
         return resultado - (resultado * 0.15);
     }
 
-    public double calcularValor1Parcela(String cidade, double valor) {
+    public double calcularValor1Parcela(int cidade, double valor) {
         double resultado = calculoValorIptu(cidade, valor);
         return resultado * 0.1;
     }

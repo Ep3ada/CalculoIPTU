@@ -1,24 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.bandtec.calculoiptu.presenters;
 
+import br.com.bandtec.calculoiptu.CalculoIptuApiApplication;
 import br.com.bandtec.calculoiptu.domain.Imovel;
+import br.com.bandtec.calculoiptu.utils.CalcularIptu;
 
-/**
- *
- * @author KR Costa
- */
 public class ImovelPresenter {
 
     private double valorVenal;
+    private double valoraParcela;
+    private double valorAVista;
     private String cidade;
     private String contribuinte;
 
     public ImovelPresenter(Imovel i) {
         this.valorVenal = i.getValorVenal();
+
+        CalcularIptu calculadora = new CalcularIptu();
 
         if (i.getCidade() != null) {
             this.cidade = i.getCidade().getNome();
@@ -31,6 +28,10 @@ public class ImovelPresenter {
         } else {
             this.contribuinte = "N/A";
         }
+
+        valoraParcela = calculadora.calcularValor1Parcela(i.getCidade().getId(), valorVenal);
+        valorAVista = calculadora.calcularPagaAVista(i.getCidade().getId(), valorVenal);
+
     }
 
     public double getValorVenal() {
@@ -43,6 +44,14 @@ public class ImovelPresenter {
 
     public String getContribuinte() {
         return contribuinte;
+    }
+
+    public double getValoraParcela() {
+        return valoraParcela;
+    }
+
+    public double getValorAVista() {
+        return valorAVista;
     }
 
 }

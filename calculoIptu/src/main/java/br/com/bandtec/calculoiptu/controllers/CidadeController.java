@@ -2,6 +2,7 @@ package br.com.bandtec.calculoiptu.controllers;
 
 import br.com.bandtec.calculoiptu.domain.Cidade;
 import br.com.bandtec.calculoiptu.repository.CidadeRepository;
+import br.com.bandtec.calculoiptu.repository.EstadoRepository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,33 +22,52 @@ import org.springframework.web.bind.annotation.RestController;
 public class CidadeController {
 
     @Autowired
-    private CidadeRepository repository;
+    private CidadeRepository repoCidade;
+    @Autowired
+    private EstadoRepository repoEstado;
 
     @GetMapping
     public ResponseEntity getTodos() {
-        Iterable<Cidade> cidades = this.repository.findAll();
+        Iterable<Cidade> cidades = this.repoCidade.findAll();
 
         return ResponseEntity.ok(cidades);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity getUm(@PathVariable("id") Integer id) {
-        Cidade c = repository.findOne(id);
-        return ResponseEntity.ok(c);
+        Cidade c = repoCidade.findOne(id);
+        if (c != null) {
+            return ResponseEntity.ok(c);
+        }
+
+        return ResponseEntity.badRequest().body("Cidade já existente!");
+
     }
 
     @PostMapping
     public ResponseEntity criar(@RequestBody Cidade c) {
-        this.repository.save(c);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        try {
+            this.repoCidade.save(c);
+
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Estado inválido!");
+        }
+
     }
 
     @PutMapping
     public ResponseEntity atualizar(@RequestBody Cidade c) {
-        this.repository.save(c);
 
-        return ResponseEntity.ok().build();
+        try {
+            this.repoCidade.save(c);
+            return ResponseEntity.ok().build();
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Estado inválido!");
+        }
+
     }
 
     /*@DeleteMapping("/{id}")
@@ -55,5 +75,4 @@ public class CidadeController {
         repository.delete(id);
         return ResponseEntity.ok().build();
     }*/
-
 }
