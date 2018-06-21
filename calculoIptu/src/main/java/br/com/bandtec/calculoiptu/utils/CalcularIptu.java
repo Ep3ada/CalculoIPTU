@@ -1,8 +1,6 @@
 package br.com.bandtec.calculoiptu.utils;
 
-import br.com.bandtec.calculoiptu.domain.Cidade;
 import br.com.bandtec.calculoiptu.domain.Faixa;
-import br.com.bandtec.calculoiptu.repository.FaixaRepository;
 import java.util.List;
 
 public class CalcularIptu {
@@ -12,12 +10,21 @@ public class CalcularIptu {
 
         for (int i = 0; i < faixas.size(); i++) {
             Faixa f = faixas.get(i);
-            if (f.getLimiteInferior() == 0.0) {
+
+            if (valor < f.getLimiteInferior()) {
+                percent = 0.0;
+            } else if (valor >= f.getLimiteInferior()
+                    && (valor <= f.getLimiteSuperior()
+                    || f.getLimiteSuperior() == 0.0)) {
+                return f.getPorcentagem();
+            }
+
+            /*if (f.getLimiteInferior() == 0.0) {
                 return percent = 0.0;
             } else if (valor >= f.getLimiteInferior()
                     && (valor < f.getLimiteSuperior() || f.getLimiteSuperior() == 0.0)) {
                 percent = f.getPorcentagem();
-            }
+            }*/
         }
 
         return percent;

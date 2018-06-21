@@ -1,6 +1,5 @@
 package br.com.bandtec.calculoiptu.controllers;
 
-import br.com.bandtec.calculoiptu.domain.Cidade;
 import br.com.bandtec.calculoiptu.domain.Faixa;
 import br.com.bandtec.calculoiptu.domain.Imovel;
 import br.com.bandtec.calculoiptu.presenters.ImovelPresenter;

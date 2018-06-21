@@ -16,10 +16,13 @@ public class FaixaPresenter {
     private String cidade;
     private double limiteSup;
     private double limiteInf;
+    private double porcentagem;
 
     public FaixaPresenter(Faixa f) {
         this.limiteSup = f.getLimiteSuperior();
         this.limiteInf = f.getLimiteInferior();
+        this.porcentagem = f.getPorcentagem();
+        
         if (f.getCidade() != null) {
             this.cidade = f.getCidade().getNome();
         } else {

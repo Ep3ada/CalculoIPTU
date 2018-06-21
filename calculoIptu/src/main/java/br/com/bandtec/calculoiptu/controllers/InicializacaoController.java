@@ -55,34 +55,30 @@ public class InicializacaoController {
 
         Faixa f1c1 = new Faixa();
         f1c1.setCidade(cd1);
-        f1c1.setNumFaixa(1);
         f1c1.setPorcentagem(0.009);
         f1c1.setLimiteInferior(0.0);
         f1c1.setLimiteSuperior(50000.0);
 
         Faixa f2c1 = new Faixa();
         f2c1.setCidade(cd1);
-        f2c1.setNumFaixa(2);
         f2c1.setPorcentagem(0.012);
         f2c1.setLimiteInferior(50000.0);
         f2c1.setLimiteSuperior(150000.0);
 
         Faixa f3c1 = new Faixa();
         f3c1.setCidade(cd1);
-        f3c1.setNumFaixa(3);
         f3c1.setPorcentagem(0.015);
         f3c1.setLimiteInferior(150000.0);
         f3c1.setLimiteSuperior(0.0);
 
         Faixa f1c2 = new Faixa();
         f1c2.setCidade(cd2);
-        f1c2.setNumFaixa(1);
+        f1c2.setPorcentagem(0.010);
         f1c2.setLimiteInferior(0.005);
         f1c2.setLimiteSuperior(100000.0);
 
         Faixa f2c2 = new Faixa();
         f2c2.setCidade(cd2);
-        f2c2.setNumFaixa(2);
         f2c2.setPorcentagem(0.020);
         f2c2.setLimiteInferior(100000.0);
         f2c2.setLimiteSuperior(0.0);

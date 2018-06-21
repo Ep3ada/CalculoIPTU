@@ -13,16 +13,14 @@ public class Faixa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    private Cidade cidade;
-
-    private Integer numFaixa;
-
     private Double porcentagem;
 
     private Double limiteInferior;
 
     private Double limiteSuperior;
+
+    @ManyToOne
+    private Cidade cidade;
 
     public int getId() {
         return id;
@@ -62,14 +60,6 @@ public class Faixa {
 
     public void setLimiteSuperior(Double limiteSuperior) {
         this.limiteSuperior = limiteSuperior;
-    }
-
-    public Integer getNumFaixa() {
-        return numFaixa;
-    }
-
-    public void setNumFaixa(Integer numFaixa) {
-        this.numFaixa = numFaixa;
     }
 
 }
