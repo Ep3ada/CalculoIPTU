@@ -1,7 +1,10 @@
 package br.com.bandtec.calculoiptu.controllers;
 
 import br.com.bandtec.calculoiptu.domain.Faixa;
+import br.com.bandtec.calculoiptu.presenters.FaixaPresenter;
 import br.com.bandtec.calculoiptu.repository.FaixaRepository;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,13 +28,18 @@ public class FaixaController {
     public ResponseEntity getTodos() {
         Iterable<Faixa> faixas = this.repository.findAll();
 
-        return ResponseEntity.ok(faixas);
+        List<FaixaPresenter> faixasP = new ArrayList<>();
+        faixas.forEach(faixa -> {
+            faixasP.add(new FaixaPresenter(faixa));
+        });
+
+        return ResponseEntity.ok(faixasP);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity getUm(@PathVariable("id") Integer id) {
-        Faixa f = repository.findOne(id);
-        return ResponseEntity.ok(f);
+        FaixaPresenter faixaP = new FaixaPresenter(repository.findOne(id));
+        return ResponseEntity.ok(faixaP);
     }
 
     @PostMapping
@@ -54,4 +62,16 @@ public class FaixaController {
         return ResponseEntity.ok().build();
     }
 
+    /*@GetMapping("/cidade/{id}")
+    public ResponseEntity getFaixasPorCidade(@PathVariable("id") Integer id) {
+        Iterable<Faixa> faixas = repository.findByCidade(id);
+
+        List<FaixaPresenter> faixasP = new ArrayList<>();
+        faixas.forEach(faixa -> {
+            faixasP.add(new FaixaPresenter(faixa));
+        });
+
+        return ResponseEntity.ok(faixasP);
+
+    }*/
 }

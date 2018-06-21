@@ -1,7 +1,10 @@
 package br.com.bandtec.calculoiptu.controllers;
 
 import br.com.bandtec.calculoiptu.domain.Estado;
+import br.com.bandtec.calculoiptu.presenters.EstadoPresenter;
 import br.com.bandtec.calculoiptu.repository.EstadoRepository;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +27,19 @@ public class EstadoController {
     public ResponseEntity getTodos() {
         Iterable<Estado> estados = this.repository.findAll();
 
+        List<EstadoPresenter> estadosP = new ArrayList();
+        estados.forEach(estado -> {
+            estadosP.add(new EstadoPresenter(estado));
+        });
+
         return ResponseEntity.ok(estados);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity getUm(@PathVariable("id") Integer id) {
-        Estado e = repository.findOne(id);
-        return ResponseEntity.ok(e);
+        EstadoPresenter estadoP = new EstadoPresenter(repository.findOne(id));
+
+        return ResponseEntity.ok(estadoP);
     }
 
     @PostMapping

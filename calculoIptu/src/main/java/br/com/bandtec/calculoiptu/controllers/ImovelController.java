@@ -1,7 +1,11 @@
 package br.com.bandtec.calculoiptu.controllers;
 
 import br.com.bandtec.calculoiptu.domain.Imovel;
+import br.com.bandtec.calculoiptu.presenters.ImovelPresenter;
+import br.com.bandtec.calculoiptu.repository.FaixaRepository;
 import br.com.bandtec.calculoiptu.repository.ImovelRepository;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,18 +24,26 @@ public class ImovelController {
 
     @Autowired
     private ImovelRepository repository;
+    @Autowired
+    private FaixaRepository repoFaixa;
 
     @GetMapping
     public ResponseEntity getTodos() {
         Iterable<Imovel> imoveis = this.repository.findAll();
 
-        return ResponseEntity.ok(imoveis);
+        List<ImovelPresenter> imoveisP = new ArrayList<>();
+        imoveis.forEach(imovel -> {
+            imoveisP.add(new ImovelPresenter(imovel, repoFaixa));
+        });
+
+        return ResponseEntity.ok(imoveisP);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity getUm(@PathVariable("id") Integer id) {
-        Imovel i = repository.findOne(id);
-        return ResponseEntity.ok(i);
+        ImovelPresenter imovelP = new ImovelPresenter(repository.findOne(id), repoFaixa);
+
+        return ResponseEntity.ok(imovelP);
     }
 
     @PostMapping
@@ -51,6 +63,7 @@ public class ImovelController {
     @DeleteMapping("/{id}")
     public ResponseEntity excluir(@PathVariable("id") Integer id) {
         repository.delete(id);
+
         return ResponseEntity.ok().build();
     }
 }

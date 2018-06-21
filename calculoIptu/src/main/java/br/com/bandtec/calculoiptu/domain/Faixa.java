@@ -16,11 +16,13 @@ public class Faixa {
     @ManyToOne
     private Cidade cidade;
 
-    private double porcentagem;
+    private Integer numFaixa;
 
-    private double limiteInferior;
+    private Double porcentagem;
 
-    private double limiteSuperior;
+    private Double limiteInferior;
+
+    private Double limiteSuperior;
 
     public int getId() {
         return id;
@@ -38,28 +40,36 @@ public class Faixa {
         this.cidade = cidade;
     }
 
-    public double getPorcentagem() {
+    public Double getPorcentagem() {
         return porcentagem;
     }
 
-    public void setPorcentagem(double porcentagem) {
+    public void setPorcentagem(Double porcentagem) {
         this.porcentagem = porcentagem;
     }
 
-    public double getLimiteInferior() {
+    public Double getLimiteInferior() {
         return limiteInferior;
     }
 
-    public void setLimiteInferior(double limiteInferior) {
+    public void setLimiteInferior(Double limiteInferior) {
         this.limiteInferior = limiteInferior;
     }
 
-    public double getLimiteSuperior() {
+    public Double getLimiteSuperior() {
         return limiteSuperior;
     }
 
-    public void setLimiteSuperior(double limiteSuperior) {
+    public void setLimiteSuperior(Double limiteSuperior) {
         this.limiteSuperior = limiteSuperior;
+    }
+
+    public Integer getNumFaixa() {
+        return numFaixa;
+    }
+
+    public void setNumFaixa(Integer numFaixa) {
+        this.numFaixa = numFaixa;
     }
 
 }

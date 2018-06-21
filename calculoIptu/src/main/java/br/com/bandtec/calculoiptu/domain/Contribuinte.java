@@ -12,10 +12,12 @@ public class Contribuinte {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column
     private String nome;
+
     @Column
-    private int cpf;
+    private String cpf;
 
     public int getId() {
         return id;
@@ -33,12 +35,14 @@ public class Contribuinte {
         this.nome = nome;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
+    
 
 }

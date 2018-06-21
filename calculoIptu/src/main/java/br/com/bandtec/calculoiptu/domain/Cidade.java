@@ -1,6 +1,5 @@
 package br.com.bandtec.calculoiptu.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +17,14 @@ public class Cidade {
 
     @ManyToOne
     private Estado estado;
+
+    public Cidade(int cidade) {
+        this.id = cidade;
+    }
+
+    public Cidade() {
+
+    }
 
     public int getId() {
         return id;
