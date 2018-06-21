@@ -1,5 +1,7 @@
 package br.com.bandtec.calculoiptu.controllers;
 
+import br.com.bandtec.calculoiptu.domain.Cidade;
+import br.com.bandtec.calculoiptu.domain.Faixa;
 import br.com.bandtec.calculoiptu.domain.Imovel;
 import br.com.bandtec.calculoiptu.presenters.ImovelPresenter;
 import br.com.bandtec.calculoiptu.repository.FaixaRepository;
@@ -23,17 +25,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class ImovelController {
 
     @Autowired
-    private ImovelRepository repository;
+    private ImovelRepository repoImovel;
+
     @Autowired
     private FaixaRepository repoFaixa;
 
     @GetMapping
     public ResponseEntity getTodos() {
-        Iterable<Imovel> imoveis = this.repository.findAll();
+        Iterable<Imovel> imoveis = this.repoImovel.findAll();
 
         List<ImovelPresenter> imoveisP = new ArrayList<>();
         imoveis.forEach(imovel -> {
-            imoveisP.add(new ImovelPresenter(imovel, repoFaixa));
+            List<Faixa> faixas = repoFaixa.findByCidade(imovel.getCidade());
+            imoveisP.add(new ImovelPresenter(imovel, faixas));
         });
 
         return ResponseEntity.ok(imoveisP);
@@ -41,28 +45,30 @@ public class ImovelController {
 
     @GetMapping("/{id}")
     public ResponseEntity getUm(@PathVariable("id") Integer id) {
-        ImovelPresenter imovelP = new ImovelPresenter(repository.findOne(id), repoFaixa);
+        Imovel imovel = repoImovel.findOne(id);
+        List<Faixa> faixas = repoFaixa.findByCidade(imovel.getCidade());
+        ImovelPresenter imovelP = new ImovelPresenter(imovel, faixas);
 
         return ResponseEntity.ok(imovelP);
     }
 
     @PostMapping
     public ResponseEntity criar(@RequestBody Imovel imovel) {
-        this.repository.save(imovel);
+        this.repoImovel.save(imovel);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping
     public ResponseEntity atualizar(@RequestBody Imovel i) {
-        this.repository.save(i);
+        this.repoImovel.save(i);
 
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity excluir(@PathVariable("id") Integer id) {
-        repository.delete(id);
+        repoImovel.delete(id);
 
         return ResponseEntity.ok().build();
     }

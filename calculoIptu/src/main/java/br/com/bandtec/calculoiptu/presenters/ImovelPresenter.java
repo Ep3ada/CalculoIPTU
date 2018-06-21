@@ -1,9 +1,11 @@
 package br.com.bandtec.calculoiptu.presenters;
 
 import br.com.bandtec.calculoiptu.CalculoIptuApiApplication;
+import br.com.bandtec.calculoiptu.domain.Faixa;
 import br.com.bandtec.calculoiptu.domain.Imovel;
 import br.com.bandtec.calculoiptu.repository.FaixaRepository;
 import br.com.bandtec.calculoiptu.utils.CalcularIptu;
+import java.util.List;
 
 public class ImovelPresenter {
 
@@ -13,7 +15,7 @@ public class ImovelPresenter {
     private String cidade;
     private String contribuinte;
 
-    public ImovelPresenter(Imovel i, FaixaRepository f) {
+    public ImovelPresenter(Imovel i, List<Faixa> f) {
         this.valorVenal = i.getValorVenal();
 
         CalcularIptu calculadora = new CalcularIptu();
@@ -30,8 +32,10 @@ public class ImovelPresenter {
             this.contribuinte = "N/A";
         }
 
-        valoraParcela = calculadora.calcularValor1Parcela(i.getCidade().getId(), valorVenal, f);
-        valorAVista = calculadora.calcularPagaAVista(i.getCidade().getId(), valorVenal, f);
+        valoraParcela = calculadora.
+                calcularValor1Parcela(valorVenal, f);
+        valorAVista = calculadora.
+                calcularPagaAVista(valorVenal, f);
 
     }
 

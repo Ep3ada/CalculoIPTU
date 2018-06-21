@@ -45,12 +45,6 @@ public class InicializacaoController {
         Contribuinte cb1 = new Contribuinte();
         cb1.setNome("João");
         cb1.setCpf("11122233344");
-        Contribuinte cb2 = new Contribuinte();
-        cb2.setNome("Maria");
-        cb2.setCpf("44455566677");
-        Contribuinte cb3 = new Contribuinte();
-        cb3.setNome("Mário");
-        cb3.setCpf("77788899900");
 
         Cidade cd1 = new Cidade();
         cd1.setNome("São Paulo");
@@ -99,7 +93,7 @@ public class InicializacaoController {
         i1c1.setValorVenal(100000.0);
 
         Imovel i2c2 = new Imovel();
-        i2c2.setContribuinte(cb2);
+        i2c2.setContribuinte(cb1);
         i2c2.setCidade(cd2);
         i2c2.setValorVenal(500000.0);
 
@@ -110,7 +104,7 @@ public class InicializacaoController {
         cidaderepository.save(cd2);
 
         contribuinterepository.save(cb1);
-        contribuinterepository.save(cb2);
+        contribuinterepository.save(cb1);
 
         faixarepository.save(f1c1);
         faixarepository.save(f2c1);
@@ -122,7 +116,7 @@ public class InicializacaoController {
         imovelrepository.save(i1c1);
         imovelrepository.save(i2c2);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("Repositórios inicializados!");
     }
 
 }
